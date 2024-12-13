@@ -1,9 +1,18 @@
-import { Link } from "react-router-dom";
-
-const Nav = () => {
+import { useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../../authContex/AuthProvider";
+import logo from "../../assets/logo.png";
+function Nav() {
+	const { signOutUser, user, setUser } = useContext(AuthContext);
+	const handleSignOut = () => {
+		signOutUser().then((result) => {
+			const currentUser = result.user;
+			setUser(currentUser);
+		});
+	};
 	const navLinks = (
 		<>
-			<Link to='/'>Home</Link>
+			<NavLink to='/'>Home</NavLink>
 		</>
 	);
 	return (
@@ -32,17 +41,35 @@ const Nav = () => {
 							{navLinks}
 						</ul>
 					</div>
-					<a className='btn btn-ghost text-xl'>daisyUI</a>
+					<div className='flex gap-3 items-center'>
+						<img className="w-20 h-20 p-0" src={logo} alt='logo' />
+						<h1>Job Protal</h1>
+					</div>
 				</div>
 				<div className='navbar-center hidden lg:flex'>
 					<ul className='menu menu-horizontal px-1'>{navLinks}</ul>
 				</div>
 				<div className='navbar-end'>
-					<Link to='/register'>Register</Link>
+					{user ? (
+						<div>
+							<button onClick={handleSignOut} className='btn btn-neutral'>
+								Logt-Out
+							</button>
+						</div>
+					) : (
+						<div className='flex gap-3'>
+							<button className='btn btn-neutral'>
+								<Link to='/register'>Register</Link>
+							</button>
+							<button className='btn btn-neutral'>
+								<Link to='/login'>Login</Link>
+							</button>
+						</div>
+					)}
 				</div>
 			</div>
 		</div>
 	);
-};
+}
 
 export default Nav;

@@ -2,9 +2,10 @@ import React, { useContext, useState } from "react";
 import registerLottieData from "../../assets/lottie/registerLottie.json";
 import Lottie from "lottie-react";
 import { AuthContext } from "../../authContex/AuthProvider";
+import { FaGoogle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 const Register = () => {
-	const { createNewUser, setUser } = useContext(AuthContext);
+	const { createNewUser, setUser, googleLogin } = useContext(AuthContext);
 
 	const handleRegister = (e) => {
 		e.preventDefault();
@@ -27,6 +28,18 @@ const Register = () => {
 				console.log(error.message);
 			});
 	};
+	// handleGoogleLogin
+	const handleGoogleLogin = () => {
+		googleLogin()
+			.then((result) => {
+				const currentUser = result.user;
+				setUser(currentUser);
+				// console.log(currentUser);
+			})
+			.catch((error) => {
+				console.log(error.message);
+			});
+	};
 	return (
 		<div>
 			<div className='hero bg-base-200 min-h-screen'>
@@ -36,7 +49,22 @@ const Register = () => {
 					</div>
 					<div className='card  w-full max-w-xl shrink-0 '>
 						<h1 className='text-5xl font-bold  text-center'>Register now!</h1>
+
 						<form onSubmit={handleRegister} className='card-body'>
+							<div>
+								<h1 className='flex justify-center items-center gap-5  border-2 py-2 '>
+									<FaGoogle size={20} />{" "}
+									<span
+										onClick={handleGoogleLogin}
+										className='text-black text-2xl font-semibold'>
+										{" "}
+										Sign up with Google
+									</span>
+								</h1>
+								<div className='divider'>
+									<p>Or continue with</p>
+								</div>
+							</div>
 							<div className='form-control'>
 								<label className='label'>
 									<span className='label-text'>Full Name</span>

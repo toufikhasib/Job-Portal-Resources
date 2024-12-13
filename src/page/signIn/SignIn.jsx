@@ -3,6 +3,7 @@ import { AuthContext } from "../../authContex/AuthProvider";
 import { Link } from "react-router-dom";
 import signInLottie from "../../assets/lottie/login.json";
 import Lottie from "lottie-react";
+import { FaGoogle } from "react-icons/fa";
 const SignIn = () => {
 	const { signInUser, setUser } = useContext(AuthContext);
 	const handleLoginIn = (e) => {
@@ -24,6 +25,18 @@ const SignIn = () => {
 				console.log(error.message);
 			});
 	};
+	// handleGoogleLogin
+	const handleGoogleLogin = () => {
+		googleLogin()
+			.then((result) => {
+				const currentUser = result.user;
+				setUser(currentUser);
+				// console.log(currentUser);
+			})
+			.catch((error) => {
+				console.log(error.message);
+			});
+	};
 	return (
 		<div>
 			<div className='hero bg-base-200 min-h-screen w-full'>
@@ -34,6 +47,21 @@ const SignIn = () => {
 					<div className='card  w-full max-w-xl shrink-0 '>
 						<h1 className='text-5xl font-bold  text-center'>Login now!</h1>
 						<form onSubmit={handleLoginIn} className='card-body'>
+							{/* google sign up */}
+							<div>
+								<h1 className='flex justify-center items-center gap-5  border-2 py-2 '>
+									<FaGoogle size={20} />{" "}
+									<span
+										onClick={handleGoogleLogin}
+										className='text-black text-2xl font-semibold'>
+										{" "}
+										Sign up with Google
+									</span>
+								</h1>
+								<div className='divider'>
+									<p>Or continue with</p>
+								</div>
+							</div>
 							<div className='form-control'>
 								<label className='label'>
 									<span className='label-text'>Email</span>
