@@ -17,7 +17,7 @@ const Banner = () => {
 								className='max-w-sm rounded-t-[40px] rounded-br-[40px] border-l-[6px]  border-b-[6px] border-blue-600 shadow-2xl'
 							/>
 							<motion.img
-								animate={{ y: [100,30] }}
+								animate={{ y: [100, 30] }}
 								transition={{ duration: 5, repeat: Infinity, delay: 1 }}
 								src={bannerTeam3}
 								className='max-w-sm  shadow-2xl h-20 w-28 absolute top-[25px] left-[377px]'
@@ -48,8 +48,7 @@ const Banner = () => {
 								repeat: Infinity,
 							}}
 							className='text-5xl font-bold'>
-							The 
-							
+							The
 							<motion.span
 								animate={{ color: ["#9BB1FF", "#E2FDFF", "#C1121F"] }}
 								transition={{
